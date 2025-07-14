@@ -98,7 +98,7 @@ const ContactCTA: React.FC = () => {
             viewport={{ once: true }}
             className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12"
           >
-            {contactMethods.map((method, index) => {
+            {contactMethods.map((method) => {
               const Icon = method.icon;
               return (
                 <motion.a

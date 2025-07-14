@@ -12,7 +12,7 @@ interface Stat {
 
 const ClientStats: React.FC = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, threshold: 0.3 });
+  const isInView = useInView(ref, { once: true });
 
   const stats: Stat[] = [
     {
