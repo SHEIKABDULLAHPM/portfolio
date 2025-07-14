@@ -2,30 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ✅ Global Smooth Scrolling */
+/* 🌐 Global Enhancements */
+
+/* ✅ Smooth anchor scrolling */
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 4rem; /* Prevent anchor hiding under sticky navbar */
 }
 
-/* 🌐 Optional Enhancements */
-
-/* 1. iOS Momentum Scroll (mobile bounce effect) */
+/* ✅ iOS momentum scroll + horizontal fix */
 html,
 body {
   -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
 }
 
-/* 2. Prevent pull-to-refresh or scroll chaining */
+/* ✅ Prevent pull-to-refresh bounce on mobile */
 body {
   overscroll-behavior-y: contain;
 }
 
-/* 3. Anchor jump offset (if using sticky navbar) */
-html {
-  scroll-padding-top: 4rem; /* Adjust based on your navbar height */
-}
-
-/* 4. Prevent horizontal scroll from rogue elements */
+/* (Optional) Smooth transitions for light/dark toggle */
 body {
-  overflow-x: hidden;
+  transition: background-color 0.3s, color 0.3s;
 }

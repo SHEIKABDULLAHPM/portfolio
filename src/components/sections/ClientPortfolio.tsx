@@ -7,9 +7,9 @@ interface Project {
   id: string;
   title: string;
   category: string;
-  description: string;
+  // description: string;
   image: string;
-  technologies: string[];
+  // technologies: string[];
   link?: string;
   featured: boolean;
 }
@@ -20,9 +20,9 @@ const ClientPortfolio: React.FC = () => {
       id: '1',
       title: 'E-Commerce Platform',
       category: 'Web Development',
-      description: 'Modern e-commerce solution with advanced analytics and seamless user experience.',
+      // description: 'Modern e-commerce solution with advanced analytics and seamless user experience.',
       image: 'https://images.pexels.com/photos/34577/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=800',
-      technologies: ['React', 'Node.js', 'Stripe', 'PostgreSQL'],
+      // technologies: ['React', 'Node.js', 'Stripe', 'PostgreSQL'],
       link: '#',
       featured: true,
     },
@@ -30,9 +30,9 @@ const ClientPortfolio: React.FC = () => {
       id: '2',
       title: 'Healthcare App',
       category: 'Mobile App',
-      description: 'Patient management system with real-time notifications and telemedicine features.',
+      // description: 'Patient management system with real-time notifications and telemedicine features.',
       image: 'https://images.pexels.com/photos/5723963/pexels-photo-5723963.jpeg?auto=compress&cs=tinysrgb&w=800',
-      technologies: ['React Native', 'Firebase', 'WebRTC'],
+      // technologies: ['React Native', 'Firebase', 'WebRTC'],
       link: '#',
       featured: true,
     },
@@ -40,29 +40,29 @@ const ClientPortfolio: React.FC = () => {
       id: '3',
       title: 'Financial Dashboard',
       category: 'Web App',
-      description: 'Real-time financial analytics dashboard with advanced data visualization.',
+      // description: 'Real-time financial analytics dashboard with advanced data visualization.',
       image: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpg?auto=compress&cs=tinysrgb&w=800',
-      technologies: ['Vue.js', 'D3.js', 'Express', 'MongoDB'],
+      // technologies: ['Vue.js', 'D3.js', 'Express', 'MongoDB'],
       link: '#',
-      featured: false,
+      featured: true,
     },
     {
       id: '4',
       title: 'Restaurant Chain',
       category: 'Website',
-      description: 'Multi-location restaurant website with online ordering and reservation system.',
+      // description: 'Multi-location restaurant website with online ordering and reservation system.',
       image: 'https://images.pexels.com/photos/1581384/pexels-photo-1581384.jpeg?auto=compress&cs=tinysrgb&w=800',
-      technologies: ['Next.js', 'Tailwind', 'Sanity CMS'],
+      // technologies: ['Next.js', 'Tailwind', 'Sanity CMS'],
       link: '#',
-      featured: false,
+      featured: true,
     },
     {
       id: '5',
       title: 'EdTech Platform',
       category: 'Web App',
-      description: 'Online learning platform with interactive courses and progress tracking.',
+      // description: 'Online learning platform with interactive courses and progress tracking.',
       image: 'https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&cs=tinysrgb&w=800',
-      technologies: ['React', 'GraphQL', 'AWS', 'Redis'],
+      // technologies: ['React', 'GraphQL', 'AWS', 'Redis'],
       link: '#',
       featured: true,
     },
@@ -70,37 +70,13 @@ const ClientPortfolio: React.FC = () => {
       id: '6',
       title: 'SaaS Marketing Tool',
       category: 'Web App',
-      description: 'Comprehensive marketing automation platform with advanced analytics.',
+      // description: 'Comprehensive marketing automation platform with advanced analytics.',
       image: 'https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=800',
-      technologies: ['Angular', 'Python', 'Docker', 'Kubernetes'],
+      // technologies: ['Angular', 'Python', 'Docker', 'Kubernetes'],
       link: '#',
-      featured: false,
+      featured: true,
     },
   ];
-
-  const featuredProjects = projects.filter(project => project.featured);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    },
-  };
 
   return (
     <section className="py-20 bg-gray-50 dark:bg-gray-900">
@@ -120,51 +96,27 @@ const ClientPortfolio: React.FC = () => {
             </span>
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Explore our portfolio of successful digital solutions that have helped 
+            Explore our portfolio of successful digital solutions that have helped
             businesses achieve their goals and exceed expectations.
           </p>
         </motion.div>
 
-        {/* Featured Projects Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12"
-        >
-          {/* Large Featured Project */}
-          <motion.div
-            variants={itemVariants}
-            className="lg:col-span-2"
-          >
-            <ProjectCard project={featuredProjects[0]} size="large" />
-          </motion.div>
+        {/* Infinite Horizontal Scroll Carousel */}
+        {/* Infinite Full Screen Horizontal Scroll Carousel */}
+<div className="relative w-screen overflow-hidden mb-20 left-1/2 -translate-x-1/2">
+  <motion.div
+    className="flex gap-6 w-max"
+    animate={{ x: ['0%', '-50%'] }}
+    transition={{ duration: 40, ease: 'linear', repeat: Infinity }}
+  >
+    {[...projects.filter(p => p.featured), ...projects.filter(p => p.featured)].map((project, i) => (
+      <div key={i} className="min-w-[300px] max-w-sm">
+        <ProjectCard project={project} size="medium" />
+      </div>
+    ))}
+  </motion.div>
+</div>
 
-          {/* Small Featured Projects */}
-          <div className="space-y-8">
-            {featuredProjects.slice(1, 3).map((project) => (
-              <motion.div key={project.id} variants={itemVariants}>
-                <ProjectCard project={project} size="small" />
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Regular Projects Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          {projects.filter(p => !p.featured).map((project) => (
-            <motion.div key={project.id} variants={itemVariants}>
-              <ProjectCard project={project} size="medium" />
-            </motion.div>
-          ))}
-        </motion.div>
 
         {/* CTA */}
         <motion.div
@@ -172,7 +124,7 @@ const ClientPortfolio: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
-          className="text-center mt-16"
+          className="text-center mt-24"
         >
           <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
             Want to see more of our work and case studies?
@@ -211,7 +163,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, size }) => {
       transition={{ duration: 0.4 }}
       className="group relative bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
     >
-      {/* Image */}
       <div className={`relative ${sizeClasses[size]} overflow-hidden`}>
         <img
           src={project.image}
@@ -219,11 +170,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, size }) => {
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
           loading="lazy"
         />
-        
-        {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        
-        {/* Hover Content */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileHover={{ opacity: 1, y: 0 }}
@@ -242,8 +189,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, size }) => {
           )}
         </motion.div>
       </div>
-
-      {/* Content */}
       <div className="p-6">
         <div className="flex items-center justify-between mb-3">
           <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
@@ -255,17 +200,17 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, size }) => {
             </span>
           )}
         </div>
-        
         <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
           {project.title}
         </h3>
-        
-        <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
-          {project.description}
-        </p>
 
-        {/* Technologies */}
-        <div className="flex flex-wrap gap-2">
+        {/* Description Removed */}
+        {/* <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+          {project.description}
+        </p> */}
+
+        {/* Technologies Removed */}
+        {/* <div className="flex flex-wrap gap-2">
           {project.technologies.map((tech) => (
             <span
               key={tech}
@@ -274,10 +219,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, size }) => {
               {tech}
             </span>
           ))}
-        </div>
+        </div> */}
       </div>
     </motion.div>
   );
 };
+
 
 export default ClientPortfolio;

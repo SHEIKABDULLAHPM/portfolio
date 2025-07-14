@@ -1,13 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { 
-  Code, 
-  ShoppingCart, 
-  Search, 
-  PenTool, 
-  Share2, 
-  ArrowRight 
+import {
+  Code,
+  ShoppingCart,
+  Search,
+  PenTool,
+  Share2,
+  ArrowRight,
 } from 'lucide-react';
 
 interface Service {
@@ -24,7 +24,8 @@ const ServicesOverview: React.FC = () => {
     {
       icon: Code,
       title: 'Web Development',
-      description: 'Custom web applications built with modern technologies for optimal performance.',
+      description:
+        'Custom web applications built with modern technologies for optimal performance.',
       features: ['React & Next.js', 'Node.js Backend', 'Responsive Design', 'API Integration'],
       path: '/services/web-development',
       color: 'from-blue-500 to-cyan-500',
@@ -32,7 +33,8 @@ const ServicesOverview: React.FC = () => {
     {
       icon: ShoppingCart,
       title: 'E-commerce Solutions',
-      description: 'Complete online stores with secure payment processing and inventory management.',
+      description:
+        'Complete online stores with secure payment processing and inventory management.',
       features: ['Shopify Expert', 'Custom E-commerce', 'Payment Gateway', 'Inventory System'],
       path: '/services/ecommerce',
       color: 'from-emerald-500 to-teal-500',
@@ -40,7 +42,8 @@ const ServicesOverview: React.FC = () => {
     {
       icon: Search,
       title: 'SEO Services',
-      description: 'Boost your search rankings and organic traffic with proven SEO strategies.',
+      description:
+        'Boost your search rankings and organic traffic with proven SEO strategies.',
       features: ['Keyword Research', 'Technical SEO', 'Content Strategy', 'Link Building'],
       path: '/services/seo',
       color: 'from-orange-500 to-red-500',
@@ -48,7 +51,8 @@ const ServicesOverview: React.FC = () => {
     {
       icon: PenTool,
       title: 'Content Marketing',
-      description: 'Engaging content that tells your story and converts visitors into customers.',
+      description:
+        'Engaging content that tells your story and converts visitors into customers.',
       features: ['Content Strategy', 'Blog Writing', 'Video Content', 'Brand Storytelling'],
       path: '/services/content-marketing',
       color: 'from-purple-500 to-pink-500',
@@ -56,7 +60,8 @@ const ServicesOverview: React.FC = () => {
     {
       icon: Share2,
       title: 'Social Media',
-      description: 'Strategic social media management to build your brand and engage audiences.',
+      description:
+        'Strategic social media management to build your brand and engage audiences.',
       features: ['Strategy Planning', 'Content Creation', 'Community Management', 'Analytics'],
       path: '/services/smm',
       color: 'from-indigo-500 to-purple-500',
@@ -68,21 +73,34 @@ const ServicesOverview: React.FC = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
+        staggerChildren: 0.2,
+        when: 'beforeChildren',
       },
     },
   };
 
-  const itemVariants = {
+  const cardVariants = {
     hidden: { opacity: 0, y: 40 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.7,
-        ease: "easeOut",
+        duration: 0.6,
+        ease: [0.42, 0, 0.58, 1],
       },
     },
+  };
+
+  const featureVariants = {
+    hidden: { opacity: 0, x: -10 },
+    visible: (i: number) => ({
+      opacity: 1,
+      x: 0,
+      transition: {
+        delay: i * 0.1,
+        duration: 0.3,
+      },
+    }),
   };
 
   return (
@@ -103,7 +121,7 @@ const ServicesOverview: React.FC = () => {
             </span>
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Comprehensive digital solutions designed to elevate your business 
+            Comprehensive digital solutions designed to elevate your business
             and deliver measurable results in today's competitive landscape.
           </p>
         </motion.div>
@@ -119,11 +137,7 @@ const ServicesOverview: React.FC = () => {
           {services.map((service) => {
             const Icon = service.icon;
             return (
-              <motion.div
-                key={service.title}
-                variants={itemVariants}
-                className="group relative"
-              >
+              <motion.div key={service.title} variants={cardVariants} className="group relative">
                 <Link to={service.path}>
                   <motion.div
                     whileHover={{ y: -8 }}
@@ -158,16 +172,19 @@ const ServicesOverview: React.FC = () => {
 
                       {/* Features */}
                       <ul className="space-y-2 mb-6">
-                        {service.features.map((feature, featureIndex) => (
+                        {service.features.map((feature, i) => (
                           <motion.li
                             key={feature}
-                            initial={{ opacity: 0, x: -10 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.3, delay: featureIndex * 0.1 }}
+                            custom={i}
+                            variants={featureVariants}
+                            initial="hidden"
+                            whileInView="visible"
                             viewport={{ once: true }}
                             className="flex items-center text-sm text-gray-500 dark:text-gray-400"
                           >
-                            <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${service.color} mr-3`} />
+                            <div
+                              className={`w-2 h-2 rounded-full bg-gradient-to-r ${service.color} mr-3`}
+                            />
                             {feature}
                           </motion.li>
                         ))}
